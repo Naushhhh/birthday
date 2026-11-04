@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Anam 💗</title>
+<style>
+:root{--rose:#c85b78;--pink:#f8e3e9;--ink:#432b35;--cream:#fffaf7}
+*{box-sizing:border-box}body{margin:0;font-family:Georgia,'Times New Roman',serif;background:linear-gradient(135deg,#fff8f6,#f9e3ea);color:var(--ink);min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:999px;background:var(--rose);color:white;padding:12px 20px;box-shadow:0 6px 18px #c85b7833}
+.wrap{max-width:1100px;margin:auto;padding:28px 18px}.top{text-align:center;margin-bottom:22px}.eyebrow{letter-spacing:3px;text-transform:uppercase;font:12px Arial;color:#a75d74}.top h1{font-size:clamp(30px,5vw,52px);margin:8px 0}.top p{font:14px Arial;color:#876b75}
+.grid{display:grid;grid-template-columns:minmax(280px,390px) 1fr;gap:22px;align-items:start}
+.panel{background:#ffffffc9;border:1px solid #efd4dd;border-radius:22px;padding:20px;box-shadow:0 12px 40px #8b506014}
+.panel h2{font-size:20px;margin:0 0 16px}.field{margin:12px 0}.field label{display:block;font:12px Arial;font-weight:bold;letter-spacing:.7px;color:#916a78;margin-bottom:6px}.field input,.field textarea{width:100%;padding:11px 12px;border:1px solid #ead0d9;border-radius:12px;background:#fffdfc;color:var(--ink)}textarea{min-height:90px;resize:vertical}
+.photos{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.thumb{width:66px;height:66px;border-radius:10px;object-fit:cover;border:2px solid white;box-shadow:0 2px 8px #0001}
+.qrrow{display:flex;gap:14px;align-items:center;margin-top:15px}.qrbox{background:white;padding:9px;border-radius:12px;min-width:120px;min-height:120px;display:grid;place-items:center}.qrbox img{width:110px;height:110px}.small{font:12px/1.5 Arial;color:#947985}.url{font:12px Arial;overflow-wrap:anywhere;color:#7b5363;margin-top:8px}
+.preview{min-height:620px;display:grid;place-items:center;padding:18px;position:relative;overflow:hidden;background:radial-gradient(ellipse at top,#fff,#fceaf0 65%,#f7dbe5);border-radius:24px}
+.card{width:min(100%,440px);min-height:550px;background:#fffdfb;border-radius:20px;box-shadow:0 18px 55px #71354b22;position:relative;padding:30px 25px;text-align:center;border:1px solid #f2dce2}
+.card:before{content:"";position:absolute;inset:10px;border:1px solid #f1d5df;border-radius:14px;pointer-events:none}
+.locked{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:480px;position:relative}.seal{font-size:58px;margin-bottom:15px}.locked h2{font-size:32px;margin:4px}.locked p{font:13px/1.6 Arial;color:#947985;max-width:270px}.pass{display:flex;gap:8px;margin:15px 0}.pass input{width:145px;text-align:center;letter-spacing:5px;padding:12px;border-radius:10px;border:1px solid #e8c8d4;background:white}
+.openCard{display:none;position:relative}.openCard .tag{font:11px Arial;letter-spacing:3px;color:#bb7188;text-transform:uppercase}.openCard h2{font-size:38px;line-height:1.1;margin:12px 0}.openCard .message{font-size:17px;line-height:1.7;white-space:pre-wrap}.gallery{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:20px auto;max-width:330px}.gallery img{width:100%;height:150px;object-fit:cover;border-radius:12px}.gallery img:first-child{grid-column:span 2;height:210px}.heart{font-size:26px;color:#c85b78}.footer{font:12px Arial;color:#b08090;margin-top:18px}
+@media(max-width:780px){.grid{grid-template-columns:1fr}.preview{min-height:600px}.panel{order:2}.preview{order:1}.wrap{padding:18px 12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="eyebrow">A little digital surprise</div><h1>HeartCraft <span style="color:#c85b78">♡</span></h1><p>Create a birthday card, add your photos, then share its QR code.</p></header>
+<div class="grid">
+<section class="panel">
+<h2>Make your card</h2>
+<div class="field"><label>HER NAME</label><input id="name" value="Anam" /></div>
+<div class="field"><label>YOUR MESSAGE</label><textarea id="message">Happy Birthday, my favourite person. 💗
+I hope your day is as beautiful and special as you are.
+Thank you for being my sweetest part of every day.</textarea></div>
+<div class="field"><label>ADD YOUR PHOTOS (UP TO 5)</label><input id="photosInput" type="file" accept="image/*" multiple /></div>
+<div class="photos" id="thumbs"></div>
+<div class="field"><label>SECRET PASSCODE</label><input id="passcode" value="0518" maxlength="12" /></div>
+<div class="field"><label>SHAREABLE WEBSITE URL</label><input id="shareUrl" placeholder="Paste your hosted URL (e.g. https://...)" /></div>
+<button id="makeQR">Create QR preview</button>
+<div class="qrrow"><div class="qrbox" id="qr"><span class="small">QR preview<br>will appear here</span></div><div class="small">Scan the QR to open the card.<br>For sharing, first host this page online (Netlify or GitHub Pages), then paste its URL above.</div></div>
+<div class="url" id="qrUrl"></div>
+<p class="small">Preview passcode is set to <b>0518</b>. Photos are kept in this browser preview; upload the project to hosting to share the actual card.</p>
+</section>
+<section class="preview">
+<div class="card">
+<div class="locked" id="locked">
+<div class="seal">💌</div><div class="eyebrow">A letter just for you</div><h2>Someone made<br>this with love</h2><p>A tiny birthday surprise is waiting inside. Enter the secret code to open your card.</p>
+<div class="pass"><input id="unlockInput" placeholder="••••" maxlength="12" inputmode="numeric"/><button id="unlock">Unlock</button></div><div class="small" id="error"></div><div class="footer">made with ♡, just for you</div>
+</div>
+<div class="openCard" id="openCard"><div class="tag">Happy Birthday</div><div class="heart">♡</div><h2 id="cardName">Anam</h2><div class="message" id="cardMessage"></div><div class="gallery" id="gallery"></div><div class="heart">♥</div><div class="footer">Always wishing you all the love in the world.</div></div>
+</div>
+</section>
+</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);let photoData=[];
+function render(){ $('cardName').textContent=$('name').value||'My favourite person';$('cardMessage').textContent=$('message').value; $('gallery').innerHTML='';photoData.forEach(src=>{let img=document.createElement('img');img.src=src;$('gallery').appendChild(img)});$('thumbs').innerHTML='';photoData.forEach(src=>{let img=document.createElement('img');img.src=src;img.className='thumb';$('thumbs').appendChild(img)})}
+$('photosInput').addEventListener('change',async e=>{let files=[...e.target.files].slice(0,5);photoData=await Promise.all(files.map(f=>new Promise(res=>{let r=new FileReader();r.onload=()=>res(r.result);r.readAsDataURL(f)})));render()});
+$('name').addEventListener('input',render);$('message').addEventListener('input',render);
+$('unlock').onclick=()=>{if($('unlockInput').value===$('passcode').value){$('locked').style.display='none';$('openCard').style.display='block';$('error').textContent='';}else $('error').textContent='That code is not quite right. Try again 💗'};
+$('unlockInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('unlock').click()});
+$('makeQR').onclick=()=>{let url=$('shareUrl').value.trim();if(!url){url=location.href.split('#')[0];$('qrUrl').textContent='Current preview URL: '+url+' (host this page to make it accessible to others)'}else $('qrUrl').textContent=url;
+$('qr').innerHTML='';let img=document.createElement('img');img.alt='QR code preview';img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(url);$('qr').appendChild(img)};
+render();
+</script>
+</body>
+</html>
